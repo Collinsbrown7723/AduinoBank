@@ -1,0 +1,27 @@
+void send1() {
+  mySerial.println("AT");
+  updateSerial();
+
+  mySerial.println("AT+CMGF=1");
+
+  updateSerial();
+  mySerial.println("AT+CMGS=\"+233205055229\"");
+  updateSerial();
+  delay(2000);
+  mySerial.println("My name is placeholder.");
+  mySerial.println("disturbance in farm");
+  updateSerial();
+  mySerial.write(26);
+  mySerial.write("disturbance in farm");
+  delay(5000);
+}
+
+void updateSerial() {
+  delay(500);
+  while (Serial.available()) {
+    mySerial.write(Serial.read());  //Forward what Serial received to Software Serial Port
+  }
+  while (mySerial.available()) {
+    Serial.write(mySerial.read());  //Forward what Software Serial received to Serial Port
+  }
+}
